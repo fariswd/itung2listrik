@@ -81,7 +81,9 @@ export default class SummaryScreen extends React.Component {
     return true
   }
   spacingDecimals(num){
-    return (+num).toLocalString()
+    let newNum = num.toString().split('.')
+    let decimals = newNum[1] ? `,${newNum[1]}` : ''
+    return newNum[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".") + decimals ;
   }
   calculate(type){
     if (!this.state.electronicList) return 0
@@ -125,7 +127,7 @@ export default class SummaryScreen extends React.Component {
         >
           <KeyboardAvoidingView
             behavior="height"
-            style={{ flex: 1, paddingTop: 35 }}
+            style={{ flex: 1, paddingTop: 15 }}
           >
             <View style={{ flex: 0, paddingBottom: 10 }}>
               <HeaderTop navigation={this.props.navigation}/>
@@ -142,7 +144,7 @@ export default class SummaryScreen extends React.Component {
 
                 <View style={styles.textList}>
                   <Texts.Medium>Harga per KWh</Texts.Medium>
-                  <Texts.Medium>Rp.{(+params.price).toLocaleString()}</Texts.Medium>
+                  <Texts.Medium>Rp.{this.spacingDecimals(+params.price)}</Texts.Medium>
                 </View>
                 
                 {electronicList && electronicList.map((electronic, key) => {
@@ -157,9 +159,9 @@ export default class SummaryScreen extends React.Component {
                           <View style={{paddingRight: 5}}/>
                           <Texts.Medium>{electronic.electronicWatt}W</Texts.Medium>
                         </View>
-                        <Texts.Small>/jam Rp.{Math.round(electronic.electronicWatt/1000*params.price).toLocaleString()} </Texts.Small>
-                        <Texts.Small>/hari Rp.{Math.round(electronic.electronicWatt/1000*params.price*24).toLocaleString()}</Texts.Small>
-                        <Texts.Small>/bulan Rp.{Math.round(electronic.electronicWatt/1000*params.price*24*30).toLocaleString()}</Texts.Small>
+                        <Texts.Small>/jam Rp.{this.spacingDecimals(Math.round(electronic.electronicWatt/1000*params.price))} </Texts.Small>
+                        <Texts.Small>/hari Rp.{this.spacingDecimals(Math.round(electronic.electronicWatt/1000*params.price*24))}</Texts.Small>
+                        <Texts.Small>/bulan Rp.{this.spacingDecimals(Math.round(electronic.electronicWatt/1000*params.price*24*30))}</Texts.Small>
                       </View>
                       <View style={{flex: 0}}>
                         <TouchableOpacity
@@ -192,12 +194,12 @@ export default class SummaryScreen extends React.Component {
 
                 <View style={styles.textList}>
                   <Texts.Medium>Cost per jam</Texts.Medium>
-                  <Texts.Medium>Rp.{this.calculate('hour').toLocaleString()}</Texts.Medium>
+                  <Texts.Medium>Rp.{this.spacingDecimals(this.calculate('hour'))}</Texts.Medium>
                 </View>
 
                 <View style={styles.textList}>
                   <Texts.Medium>Cost per hari</Texts.Medium>
-                  <Texts.Medium>Rp.{this.calculate('day').toLocaleString()}</Texts.Medium>
+                  <Texts.Medium>Rp.{this.spacingDecimals(this.calculate('day'))}</Texts.Medium>
                 </View>
 
                 <View style={styles.textList}>
@@ -205,7 +207,7 @@ export default class SummaryScreen extends React.Component {
                     <Texts.Medium>Cost per bulan</Texts.Medium>
                     <Texts.Small>*30 hari</Texts.Small>
                   </View>
-                  <Texts.Medium>Rp.{this.calculate('month').toLocaleString()}</Texts.Medium>
+                  <Texts.Medium>Rp.{this.spacingDecimals(this.calculate('month'))}</Texts.Medium>
                 </View>
 
               </ScrollView>

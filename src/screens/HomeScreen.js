@@ -71,7 +71,7 @@ export default class HomeScreen extends React.Component {
         >
           <KeyboardAvoidingView
             behavior="height"
-            style={{ flex: 1, paddingTop: 35, justifyContent: "space-between" }}>
+            style={{ flex: 1, paddingTop: 15, justifyContent: "space-between" }}>
             <HeaderTop navigation={this.props.navigation} from="home" />
             <View style={styles.whiteBox}>
               <View>
@@ -111,7 +111,7 @@ export default class HomeScreen extends React.Component {
                   }}>
                     <TextInput
                       editable={this.state.wattSelect == 'custom'}
-                      style={{ fontFamily: 'montserrat', fontSize: 18 }}
+                      style={{ fontFamily: 'montserrat', fontSize: 18, padding: 0, color: '#666' }}
                       onChangeText={text => this.setState({price: text})}
                       value={this.state.price}
                       keyboardType="number-pad"

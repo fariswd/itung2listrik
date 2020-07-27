@@ -5,6 +5,12 @@ import Navigation from './src/navigations/Navigation'
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
+import * as SplashScreen from "expo-splash-screen";
+
+console.disableYellowBox = true;
+if (typeof console !== "undefined" && !__DEV__) {
+  console.log = () => {};
+}
 
 export default class App extends React.Component {
   constructor(){
@@ -13,6 +19,11 @@ export default class App extends React.Component {
       ready: false
     }
     this.fontLoad()
+  }
+  componentDidMount(){
+    setTimeout(async () => {
+      await SplashScreen.hideAsync();
+    }, 1000);
   }
   async fontLoad(){
     await Asset.loadAsync([
