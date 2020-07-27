@@ -17,7 +17,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.fariswd.itung2listrik",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.fariswd.itung2listrik",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
