@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Navigation from './src/navigations/Navigation'
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+import { Asset } from "expo-asset";
 
 export default class App extends React.Component {
   constructor(){
@@ -14,6 +15,9 @@ export default class App extends React.Component {
     this.fontLoad()
   }
   async fontLoad(){
+    await Asset.loadAsync([
+      require('./src/assets/bg.png')
+    ])
     await Font.loadAsync({
       montserrat: require("./src/assets/font/montserrat.ttf"),
     });
